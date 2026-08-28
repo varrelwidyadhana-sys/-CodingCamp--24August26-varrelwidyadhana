@@ -1,0 +1,461 @@
+/* ============================================================
+   LIFE DASHBOARD — style.css
+   Dark-grey default theme · Light mode via [data-theme="light"]
+   ============================================================ */
+
+/* ── CSS Custom Properties ────────────────────────────────── */
+:root {
+  /* Dark theme (default) */
+  --bg-page:       #1a1a1a;
+  --bg-card:       #242424;
+  --bg-card-hover: #2c2c2c;
+  --bg-input:      #2e2e2e;
+  --bg-item:       #2e2e2e;
+  --bg-item-hover: #363636;
+
+  --border:        #3a3a3a;
+  --border-focus:  #e0a030;
+
+  --text-primary:  #f0f0f0;
+  --text-secondary:#a0a0a0;
+  --text-done:     #555;
+
+  --accent:        #e0a030;   /* warm amber */
+  --accent-hover:  #c88a20;
+  --accent-dim:    #3a2e10;
+
+  --danger:        #e05050;
+  --danger-hover:  #c43030;
+
+  --btn-secondary-bg:   #333;
+  --btn-secondary-text: #e0a030;
+  --btn-secondary-hover:#3d3d3d;
+
+  --scrollbar-thumb:    #444;
+  --shadow:             0 8px 32px rgba(0,0,0,0.45);
+  --shadow-pill:        0 2px 8px rgba(0,0,0,0.35);
+
+  --toggle-icon: "☀️";
+}
+
+[data-theme="light"] {
+  --bg-page:       #f0ede8;
+  --bg-card:       #ffffff;
+  --bg-card-hover: #fafafa;
+  --bg-input:      #ffffff;
+  --bg-item:       #f5f2ee;
+  --bg-item-hover: #ede9e3;
+
+  --border:        #ddd;
+  --border-focus:  #c88a20;
+
+  --text-primary:  #1a1a1a;
+  --text-secondary:#777;
+  --text-done:     #bbb;
+
+  --accent:        #c88a20;
+  --accent-hover:  #a86d10;
+  --accent-dim:    #fdf0d8;
+
+  --danger:        #e53e3e;
+  --danger-hover:  #c53030;
+
+  --btn-secondary-bg:   #ede9e3;
+  --btn-secondary-text: #a86d10;
+  --btn-secondary-hover:#e0d9d0;
+
+  --scrollbar-thumb:    #ccc;
+  --shadow:             0 8px 32px rgba(0,0,0,0.10);
+  --shadow-pill:        0 2px 6px rgba(0,0,0,0.10);
+
+  --toggle-icon: "🌙";
+}
+
+/* ── Reset ────────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ── Base ─────────────────────────────────────────────────── */
+body {
+  min-height: 100vh;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  background-color: var(--bg-page);
+  color: var(--text-primary);
+  padding: 32px 16px 56px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/* ── Layout ───────────────────────────────────────────────── */
+.container {
+  max-width: 920px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 1fr 1.6fr;
+  gap: 20px;
+}
+
+@media (max-width: 640px) {
+  .row { grid-template-columns: 1fr; }
+}
+
+/* ── Dark-mode toggle (top-right) ─────────────────────────── */
+.topbar {
+  display: flex;
+  justify-content: flex-end;
+}
+
+#btn-theme {
+  background: var(--bg-card);
+  border: 1.5px solid var(--border);
+  border-radius: 24px;
+  padding: 6px 16px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: background 0.2s, border-color 0.2s;
+  box-shadow: var(--shadow-pill);
+}
+
+#btn-theme:hover {
+  background: var(--bg-item-hover);
+  border-color: var(--accent);
+}
+
+/* ── Card ─────────────────────────────────────────────────── */
+.card {
+  background: var(--bg-card);
+  border-radius: 16px;
+  padding: 28px 28px 24px;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+  transition: background 0.3s, border-color 0.3s;
+}
+
+.card-title {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  margin-bottom: 18px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* ── Greeting Card ────────────────────────────────────────── */
+.greeting-card {
+  text-align: center;
+  padding: 36px 28px 28px;
+}
+
+.clock {
+  font-size: 3.2rem;
+  font-weight: 800;
+  color: var(--accent);
+  letter-spacing: 0.05em;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.date {
+  margin-top: 8px;
+  font-size: 0.92rem;
+  color: var(--text-secondary);
+  letter-spacing: 0.02em;
+}
+
+.greeting {
+  margin-top: 12px;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+/* ── Focus Timer ──────────────────────────────────────────── */
+.timer-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.timer-display {
+  font-size: 3rem;
+  font-weight: 800;
+  color: var(--accent);
+  letter-spacing: 0.08em;
+  margin-bottom: 22px;
+  font-variant-numeric: tabular-nums;
+}
+
+.timer-controls {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* ── To-Do Card ───────────────────────────────────────────── */
+.todo-card { display: flex; flex-direction: column; }
+
+/* Title row with sort select */
+.todo-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.todo-header .card-title { margin-bottom: 0; }
+
+.sort-select {
+  padding: 5px 10px;
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg-input);
+  color: var(--text-primary);
+  font-size: 0.8rem;
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.sort-select:focus { border-color: var(--accent); }
+
+.todo-input-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.todo-input {
+  flex: 1;
+  padding: 9px 14px;
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  font-size: 0.9rem;
+  outline: none;
+  background: var(--bg-input);
+  color: var(--text-primary);
+  transition: border-color 0.2s, background 0.3s;
+}
+
+.todo-input:focus { border-color: var(--accent); }
+
+/* Duplicate-warning shake */
+@keyframes shake {
+  0%,100% { transform: translateX(0); }
+  20%     { transform: translateX(-6px); }
+  40%     { transform: translateX(6px); }
+  60%     { transform: translateX(-4px); }
+  80%     { transform: translateX(4px); }
+}
+.shake { animation: shake 0.35s ease; }
+
+/* Duplicate warning label */
+.todo-warning {
+  font-size: 0.78rem;
+  color: var(--danger);
+  margin-bottom: 8px;
+  min-height: 1em;
+}
+
+/* Task list */
+.todo-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 280px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.todo-list::-webkit-scrollbar { width: 4px; }
+.todo-list::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+  border-radius: 4px;
+}
+
+.todo-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 12px;
+  border-radius: 10px;
+  background: var(--bg-item);
+  border: 1px solid transparent;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.todo-item:hover {
+  background: var(--bg-item-hover);
+  border-color: var(--border);
+}
+
+.todo-item input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--accent);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.todo-item .task-text {
+  flex: 1;
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  word-break: break-word;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.todo-item .task-text.done {
+  text-decoration: line-through;
+  color: var(--text-done);
+}
+
+.todo-item .task-edit-input {
+  flex: 1;
+  padding: 4px 8px;
+  border: 1.5px solid var(--accent);
+  border-radius: 6px;
+  font-size: 0.9rem;
+  outline: none;
+  background: var(--bg-input);
+  color: var(--text-primary);
+}
+
+.todo-item .btn-delete { flex-shrink: 0; }
+
+/* ── Quick Links Card ─────────────────────────────────────── */
+.links-input-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+
+.link-input {
+  padding: 9px 14px;
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  font-size: 0.9rem;
+  outline: none;
+  background: var(--bg-input);
+  color: var(--text-primary);
+  min-width: 0;
+  transition: border-color 0.2s, background 0.3s;
+}
+
+.link-input:focus { border-color: var(--accent); }
+
+#link-name-input { width: 130px; flex-shrink: 0; }
+.link-url        { flex: 1; }
+
+.links-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.link-pill {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: var(--shadow-pill);
+}
+
+.link-pill a {
+  display: inline-block;
+  padding: 8px 16px;
+  background: var(--accent);
+  color: #111;
+  font-size: 0.88rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: background 0.2s;
+  white-space: nowrap;
+}
+
+.link-pill a:hover { background: var(--accent-hover); }
+
+.link-pill .btn-remove-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 36px;
+  background: var(--accent-dim);
+  color: var(--accent);
+  font-size: 1rem;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.link-pill .btn-remove-link:hover {
+  background: var(--danger);
+  color: #fff;
+}
+
+/* ── Buttons ──────────────────────────────────────────────── */
+.btn {
+  padding: 9px 18px;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+  white-space: nowrap;
+}
+
+.btn:active { transform: scale(0.97); }
+
+.btn-primary {
+  background: var(--accent);
+  color: #111;
+}
+
+.btn-primary:hover { background: var(--accent-hover); }
+
+.btn-secondary {
+  background: var(--btn-secondary-bg);
+  color: var(--btn-secondary-text);
+}
+
+.btn-secondary:hover { background: var(--btn-secondary-hover); }
+
+.btn-delete {
+  background: var(--danger);
+  color: #fff;
+  padding: 6px 12px;
+  font-size: 0.8rem;
+  border-radius: 6px;
+}
+
+.btn-delete:hover { background: var(--danger-hover); }
+
+/* ── Utility ──────────────────────────────────────────────── */
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
